@@ -1,6 +1,7 @@
 messages = {"msg_0": "Enter an equation",
             "msg_1": "Do you even know what numbers are? Stay focused!",
-            "msg_2": "Yes ... an interesting math operation. You've slept through all classes, haven't you?"}
+            "msg_2": "Yes ... an interesting math operation. You've slept through all classes, haven't you?",
+            "msg_3": "Yeah... division by zero. Smart move..."}
 
 while True:
     print(messages["msg_0"])
@@ -14,4 +15,18 @@ while True:
     if oper not in ["+", "-", "*", "/"]:
         print(messages["msg_2"])
         continue
-    break
+    if oper == "+":
+        result = float(x) + float(y)
+        break
+    if oper == "-":
+        result = float(x) - float(y)
+        break
+    if oper == "*":
+        result = float(x) * float(y)
+        break
+    if oper == "/" and float(y):
+        result = float(x) / float(y)
+        break
+    print(messages["msg_3"])
+
+print(result)
