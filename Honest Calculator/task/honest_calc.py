@@ -12,7 +12,7 @@ def check(v1, v2, v3):
 
 
 def is_one_digit(v):
-    # Check if v is integer, or if it is a float check if it has decimals
+    # Check if string v is integer, or if it is a float check if it has decimals
     if (v.isdigit() or v.replace(".", "", 1).isdigit() and float(v) % 1 == 0.0) and -10 < float(v) < 10:
         output = True
     else:
@@ -29,7 +29,10 @@ messages = {0: "Enter an equation",
             6: " ... lazy",
             7: " ... very lazy",
             8: " ... very, very lazy",
-            9: "You are"}
+            9: "You are",
+            10: "Are you sure? It is only one digit! (y / n)",
+            11: "Don't be silly! It's just one number! Add to the memory? (y / n)",
+            12: "Last chance! Do you really want to embarrass yourself? (y / n)"}
 
 memory = 0
 end = False
@@ -69,18 +72,34 @@ while not end:
 
     print(result)
 
-    # Store the result loop
+    # Store-the-result loop
     while True:
         print(messages[4])
         answer = input()
         if answer == "y":
-            memory = result
-            break  # jump to continue calculations loop
+            store = True
+            if is_one_digit(str(result)):
+                msg_index = 10
+                # Are-you-sure loop
+                while True:
+                    print(messages[msg_index])
+                    answer = input()
+                    if answer == "y":
+                        if msg_index < 12:
+                            msg_index += 1
+                            continue
+                        break
+                    elif answer == "n":
+                        store = False
+                        break
+                    continue
+            memory = result if store else memory
+            break  # jump to continue-calculations loop
         elif answer != "n":
             continue
-        break  # jump to continue calculations loop
+        break  # jump to continue-calculations loop
 
-    # Continue calculations loop
+    # Continue-calculations loop
     while True:
         print(messages[5])
         answer = input()
